@@ -1,0 +1,36 @@
+Planejamento de Rodas:
+
+Sistemas são basicamente um agrupamento de CRUDs
+CRUD = Create, Read, Update, Delete(no softDelete não é usado o delete mesmo.);
+
+1: Pegar as entidades e fazer rotas de CRUD padrão(exemplo: um sistema de estoque tem que ter o cadastro de produtos);
+2: Pensar nas coisas epecificas do projeto(exemplo: uma rota de busca de produtos por busca);
+
+Soft delete = o registro não é deletado, mas se coloca um status false para esse produto, sendo assim ele não aparece em buscase filtros;
+
+Primeiro passo CRUD geral
+    events:
+        GET /admin/events
+        GET /admin/events/:id
+        POST /admin/events/
+        PUT /admin/events/:id
+        DELETE /admin/events/:id
+
+
+    groups:
+        GET /admin/events/:id_event/groups
+        GET /admin/events/:id_event/groups/:id
+        POST /admin/events/:id_event/groups
+        PUT /admin/events/:id_event/groups/:id
+        DELETE /admin/events/:id_event/groups/:id
+
+    peoples:
+        GET /admin/events/:id_event/groups/:id_group/people
+        GET /admin/events/:id_event/groups/:id_group/people/:id
+        POST /admin/events/:id_event/groups/:id_group
+        PUT /admin/events/:id_event/groups/:id_group/:id
+        DELETE /admin/events/:id_event/groups/:id_group/:id
+
+Segundo passo: Pensar em coisas especificas do sistema:
+    login:
+        POST /admin/login
