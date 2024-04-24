@@ -32,6 +32,16 @@ Nesse caso por conta de termos grupos e eventos distintos a chance de dar algum 
 
 # Rotas API
 
+## Rotas Teste
+
+### Ping
+
+Retorna json{pong: true} - mostando conexão do server, se estiver ok
+
+```http
+  GET /ping
+```
+
 ## Rotas Iniciais
 
 ### Rotas administrativas
