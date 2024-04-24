@@ -2,6 +2,10 @@ import { RequestHandler, Request, Response } from "express";
 import { z } from "zod";
 import * as AuthService from "@/services/Auth.Service";
 
+export const ping = (req: Request, res: Response) => {
+  return res.json({ pong: true, admin: true });
+};
+
 export const login: RequestHandler = (req: Request, res: Response) => {
   // Esquema de validação de dados
   const loginSchema = z.object({
