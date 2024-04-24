@@ -5,6 +5,7 @@ import * as cors from "cors";
 import * as path from "path";
 // import * as https from "https";
 import * as http from "http";
+import adminRoutes from "@/routes/admin";
 import siteRoutes from "@/routes/site";
 import { requestIntercepter } from "@/utils/requestIntercepter";
 
@@ -20,7 +21,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("*", requestIntercepter);
 
-// app.use("admin", adminRoutes);
+app.use("/admin", adminRoutes);
 app.use("/", siteRoutes);
 
 app.use((req: Request, res: Response) => {
