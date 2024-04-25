@@ -6,9 +6,7 @@ import * as AuthMiddleware from "@/middleware/Auth.Middleware";
 const router = Router();
 
 router.get("/ping", AuthMiddleware.validateToken, AuthController.ping);
-
 router.post("/login", AuthController.login);
-
 router.get("/events", AuthMiddleware.validateToken, EventsController.getAll);
 router.get(
   "/events/:id",
@@ -20,6 +18,11 @@ router.put(
   "/events/:id",
   AuthMiddleware.validateToken,
   EventsController.updateEvent,
+);
+router.delete(
+  "/events/:id",
+  AuthMiddleware.validateToken,
+  EventsController.removeEvent,
 );
 
 export default router;
