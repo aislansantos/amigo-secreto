@@ -15,7 +15,11 @@ router.get(
   AuthMiddleware.validateToken,
   EventsController.getEvent,
 );
-
 router.post("/events", AuthMiddleware.validateToken, EventsController.addEvent);
+router.put(
+  "/events/:id",
+  AuthMiddleware.validateToken,
+  EventsController.updateEvent,
+);
 
 export default router;

@@ -19,7 +19,7 @@ export const getEvent: RequestHandler = async (req: Request, res: Response) => {
   return res.json({ error: "Ocorreu um erro" });
 };
 
-export const addEvent = async (req: Request, res: Response) => {
+export const addEvent: RequestHandler = async (req: Request, res: Response) => {
   const addEventSchema = z.object({
     title: z.string(),
     description: z.string(),
@@ -30,6 +30,35 @@ export const addEvent = async (req: Request, res: Response) => {
 
   const newEvent = await eventsService.addEvent(body.data);
   if (newEvent) return res.status(201).json({ event: newEvent });
+
+  return res.json({ error: "Ocorreu um erro" });
+};
+
+export const updateEvent: RequestHandler = async (
+  req: Request,
+  res: Response,
+) => {
+  const { id } = req.params;
+  const updateEventsSchema = z.object({
+    status: z.boolean().optional(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    grouped: z.boolean().optional(),
+  });
+
+  const body = updateEventsSchema.safeParse(req.body);
+  if (!body.success) return res.json({ error: "Dados inválidos" });
+
+  const updatedEvent = await eventsService.updateEvent(parseInt(id), body.data);
+  if (updatedEvent) {
+    if (updatedEvent.status) {
+      //TODO: Fazer o sorteio
+    } else {
+      //TODO: Limpar o sorteio
+    }
+
+    return res.json({ event: updatedEvent });
+  }
 
   return res.json({ error: "Ocorreu um erro" });
 };

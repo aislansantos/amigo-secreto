@@ -17,10 +17,20 @@ export const getEvent = async (id: number) => {
     return false;
   }
 };
+
 type EventsCreateData = Prisma.Args<typeof prisma.event, "create">["data"];
 export const addEvent = async (data: EventsCreateData) => {
   try {
     return await prisma.event.create({ data });
+  } catch (error) {
+    return false;
+  }
+};
+
+type EventsUpdateData = Prisma.Args<typeof prisma.event, "update">["data"];
+export const updateEvent = async (id: number, data: EventsUpdateData) => {
+  try {
+    return await prisma.event.update({ where: { id }, data });
   } catch (error) {
     return false;
   }

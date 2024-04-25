@@ -39,8 +39,8 @@ const regularServer = http.createServer(app);
 
 // Verificar ambiente e iniciar o servidor
 if (process.env.NODE_ENV === "production") {
-  // TODO Configurar SSL
-  // TODO Rodar server na 80 e na 443
+  //TODO: Configurar SSL
+  //TODO: Rodar server na 80 e na 443
 } else {
   const serverPort: number = process.env.PORT
     ? parseInt(process.env.PORT)

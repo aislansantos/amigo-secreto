@@ -6,7 +6,7 @@ export const requestIntercepter: RequestHandler = (
   next: NextFunction,
 ) => {
   console.log(
-    `↪️ ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)}`,
+    `↪️ ${res.statusCode}: ${req.method} ${req.originalUrl} ${JSON.stringify(req.body)}`,
   );
 
   next();
