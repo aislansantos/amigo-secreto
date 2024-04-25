@@ -32,9 +32,33 @@ router.delete(
 
 // Rotas Grupos
 router.get(
-  "/events/:id_event",
+  "/events/:id_event/groups",
   AuthMiddleware.validateToken,
   GroupsController.getAll,
+);
+
+router.get(
+  "/events/:id_event/groups/:id",
+  AuthMiddleware.validateToken,
+  GroupsController.getGroup,
+);
+
+router.post(
+  "/events/:id_event/groups",
+  AuthMiddleware.validateToken,
+  GroupsController.addGroup,
+);
+
+router.put(
+  "/events/:id_event/groups/:id",
+  AuthMiddleware.validateToken,
+  GroupsController.updateGroup,
+);
+
+router.delete(
+  "/events/:id_event/groups/:id",
+  AuthMiddleware.validateToken,
+  GroupsController.removeGroup,
 );
 
 export default router;
