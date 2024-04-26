@@ -1,5 +1,5 @@
 import { PrismaClient, Prisma } from "@prisma/client";
-import * as eventsService from "@/services/Events.Service";
+import * as EventsService from "@/services/Events.Service";
 
 const prisma = new PrismaClient();
 
@@ -25,7 +25,7 @@ export const addGroup = async (data: GroupsCreateData) => {
   try {
     if (!data.id_event) return false;
 
-    const event = await eventsService.getEvent(data.id_event);
+    const event = await EventsService.getEvent(data.id_event);
     if (!event) return false;
 
     return await prisma.eventGroup.create({ data });

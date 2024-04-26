@@ -64,5 +64,25 @@ router.get(
   AuthMiddleware.validateToken,
   PeopleController.getAll,
 );
+router.get(
+  "/events/:id_event/groups/:id_group/people/:id",
+  AuthMiddleware.validateToken,
+  PeopleController.getPerson,
+);
+router.post(
+  "/events/:id_event/groups/:id_group/people",
+  AuthMiddleware.validateToken,
+  PeopleController.addPerson,
+);
+router.put(
+  "/events/:id_event/groups/:id_group/people/:id",
+  AuthMiddleware.validateToken,
+  PeopleController.updatePerson,
+);
+router.delete(
+  "/events/:id_event/groups/:id_group/people/:id",
+  AuthMiddleware.validateToken,
+  PeopleController.removePerson,
+);
 
 export default router;

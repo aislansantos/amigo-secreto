@@ -27,7 +27,7 @@ Primeiro passo CRUD geral
     peoples:
         GET /admin/events/:id_event/groups/:id_group/people
         GET /admin/events/:id_event/groups/:id_group/people/:id
-        POST /admin/events/:id_event/groups/:id_group
+        POST /admin/events/:id_event/groups/:id_group/people
         PUT /admin/events/:id_event/groups/:id_group/:id
         DELETE /admin/events/:id_event/groups/:id_group/:id
 

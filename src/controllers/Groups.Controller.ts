@@ -61,6 +61,8 @@ export const updateGroup: RequestHandler = async (
     body.data,
   );
   if (updatedGroup) return res.json({ group: updatedGroup });
+
+  return res.json({ error: "Ocorreu um erro" });
 };
 
 export const removeGroup: RequestHandler = async (
