@@ -1,6 +1,6 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import * as PeopleService from "@/services/People.Service";
-import * as GroupServices from "@/services/Groups.Service";
+// import * as GroupServices from "@/services/Groups.Service";
 
 const prisma = new PrismaClient();
 
@@ -76,17 +76,13 @@ export const doMatches = async (id: number): Promise<boolean> => {
       id_event: id,
     });
     if (peopleList && Array.isArray(peopleList)) {
-      let sortedList: { id: number; matche: number }[] = [];
-      let sortable: number[] = [];
-
-      let attempts = 0;
-      const maxAttempts = peopleList.length;
-      let keepTrying = true;
-
-      while (keepTrying && attempts < maxAttempts) {
-        
-      }
-
+      // let sortedList: { id: number; matche: number }[] = [];
+      // let sortable: number[] = [];
+      // let attempts = 0;
+      // const maxAttempts = peopleList.length;
+      // let keepTrying = true;
+      // while (keepTrying && attempts < maxAttempts) {
+      // }
       /*
       if (attempts < maxAttempts) {
         for (const i in sortedList) {
