@@ -1,5 +1,6 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import * as PeopleService from "@/services/People.Service";
+import { encryptMatch } from "@/utils/match";
 // import * as GroupServices from "@/services/Groups.Service";
 
 const prisma = new PrismaClient();
@@ -46,44 +47,59 @@ export const removeEvent = async (id: number) => {
   }
 };
 
-/*
-  ID evento = 5
-    - Grupo A
-    -- Aislan
-    -- Débora
-    -- Augusto
-
-    - Grupo B
-    -- Maria
-    -- Cotinha
-    -- Roseli
-    
-    - Grupo C
-    -- Julinho
-    -- Sabrina
-    -- Luiz Alexandre
-    -- Luiz Carlos
-
-  */
-
 export const doMatches = async (id: number): Promise<boolean> => {
   const eventItem = await prisma.event.findFirst({
     where: { id },
     select: { grouped: true },
   });
   if (eventItem) {
-    const peopleList = await PeopleService.getPerson({
+    const peopleList = await PeopleService.getAll({
       id_event: id,
     });
     if (peopleList && Array.isArray(peopleList)) {
-      // let sortedList: { id: number; matche: number }[] = [];
-      // let sortable: number[] = [];
-      // let attempts = 0;
-      // const maxAttempts = peopleList.length;
-      // let keepTrying = true;
-      // while (keepTrying && attempts < maxAttempts) {
-      // }
-      /*
+      let sortedList: { id: number; match: number }[] = [];
+      let sortable: number[] = [];
+
+      let attempts = 0;
+      const maxAttempts = peopleList.length;
+      let keepTrying = true;
+
+      while (keepTrying && attempts < maxAttempts) {
+        keepTrying = false;
+        attempts++;
+        sortedList = [];
+        sortable = peopleList.map((item) => item.id);
+
+        for (const i in peopleList) {
+          let sortableFiltred: number[] = sortable;
+          if (eventItem.grouped) {
+            sortableFiltred = sortable.filter((sortableItem) => {
+              const sortablePerson = peopleList.find((item) => item.id === sortableItem);
+              return peopleList[i].id_group !== sortablePerson?.id_group;
+            });
+          }
+
+          if (
+            sortableFiltred.length === 0 ||
+            (sortableFiltred.length === 1 && peopleList[i].id === sortableFiltred[0])
+          ) {
+            keepTrying = true;
+          } else {
+            let sortedIndex = Math.floor(Math.random() * sortableFiltred.length);
+            while (sortableFiltred[sortedIndex] === peopleList[i].id) {
+              sortedIndex = Math.floor(Math.random() * sortableFiltred.length);
+            }
+
+            sortedList.push({
+              id: peopleList[i].id,
+              match: sortableFiltred[sortedIndex],
+            });
+
+            sortable = sortable.filter((item) => item !== sortableFiltred[sortedIndex]);
+          }
+        }
+      }
+
       if (attempts < maxAttempts) {
         for (const i in sortedList) {
           await PeopleService.updatePerson(
@@ -91,14 +107,12 @@ export const doMatches = async (id: number): Promise<boolean> => {
               id: sortedList[i].id,
               id_event: id,
             },
-            { matched: "" }, // TODO: Criar o encryptMatch()
+            { matched: encryptMatch(sortedList[i].match) },
           );
         }
         return true;
       }
-      */
     }
   }
-
-  return false; //! TEMPORÁRIO
+  return false;
 };

@@ -35,10 +35,7 @@ export const addEvent: RequestHandler = async (req: Request, res: Response) => {
   return res.json({ error: "Ocorreu um erro" });
 };
 
-export const updateEvent: RequestHandler = async (
-  req: Request,
-  res: Response,
-) => {
+export const updateEvent: RequestHandler = async (req: Request, res: Response) => {
   const { id } = req.params;
   const updateEventsSchema = z.object({
     status: z.boolean().optional(),
@@ -53,14 +50,11 @@ export const updateEvent: RequestHandler = async (
   const updatedEvent = await EventsService.updateEvent(parseInt(id), body.data);
   if (updatedEvent) {
     if (updatedEvent.status) {
-      // TODO status doMatches
+      EventsService.doMatches;
       const result = await EventsService.doMatches(parseInt(id));
       if (!result) return res.json({ error: "Grupos impossivel de sortear" });
     } else {
-      await PeopleService.updatePerson(
-        { id_event: parseInt(id) },
-        { matched: "" },
-      );
+      await PeopleService.updatePerson({ id_event: parseInt(id) }, { matched: "" });
     }
 
     return res.json({ event: updatedEvent });
@@ -69,10 +63,7 @@ export const updateEvent: RequestHandler = async (
   return res.json({ error: "Ocorreu um erro" });
 };
 
-export const removeEvent: RequestHandler = async (
-  req: Request,
-  res: Response,
-) => {
+export const removeEvent: RequestHandler = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const removedEvent = await EventsService.removeEvent(parseInt(id));
