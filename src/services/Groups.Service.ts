@@ -36,10 +36,7 @@ export const addGroup = async (data: GroupsCreateData) => {
 
 type UpdateFilters = { id: number; id_event?: number };
 type GroupUpdateData = Prisma.Args<typeof prisma.eventGroup, "update">["data"];
-export const updateGroup = async (
-  filters: UpdateFilters,
-  data: GroupUpdateData,
-) => {
+export const updateGroup = async (filters: UpdateFilters, data: GroupUpdateData) => {
   try {
     return await prisma.eventGroup.update({ where: filters, data });
   } catch (error) {

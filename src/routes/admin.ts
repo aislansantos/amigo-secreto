@@ -14,75 +14,23 @@ router.post("/login", AuthController.login);
 
 // Routas Eventos
 router.get("/events", AuthMiddleware.validateToken, EventsController.getAll);
-router.get(
-  "/events/:id",
-  AuthMiddleware.validateToken,
-  EventsController.getEvent,
-);
+router.get("/events/:id", AuthMiddleware.validateToken, EventsController.getEvent);
 router.post("/events", AuthMiddleware.validateToken, EventsController.addEvent);
-router.put(
-  "/events/:id",
-  AuthMiddleware.validateToken,
-  EventsController.updateEvent,
-);
-router.delete(
-  "/events/:id",
-  AuthMiddleware.validateToken,
-  EventsController.removeEvent,
-);
+router.put("/events/:id", AuthMiddleware.validateToken, EventsController.updateEvent);
+router.delete("/events/:id", AuthMiddleware.validateToken, EventsController.removeEvent);
 
 // Rotas Grupos
-router.get(
-  "/events/:id_event/groups",
-  AuthMiddleware.validateToken,
-  GroupsController.getAll,
-);
-router.get(
-  "/events/:id_event/groups/:id",
-  AuthMiddleware.validateToken,
-  GroupsController.getGroup,
-);
-router.post(
-  "/events/:id_event/groups",
-  AuthMiddleware.validateToken,
-  GroupsController.addGroup,
-);
-router.put(
-  "/events/:id_event/groups/:id",
-  AuthMiddleware.validateToken,
-  GroupsController.updateGroup,
-);
-router.delete(
-  "/events/:id_event/groups/:id",
-  AuthMiddleware.validateToken,
-  GroupsController.removeGroup,
-);
+router.get("/events/:id_event/groups", AuthMiddleware.validateToken, GroupsController.getAll);
+router.get("/events/:id_event/groups/:id", AuthMiddleware.validateToken, GroupsController.getGroup);
+router.post("/events/:id_event/groups", AuthMiddleware.validateToken, GroupsController.addGroup);
+router.put("/events/:id_event/groups/:id", AuthMiddleware.validateToken, GroupsController.updateGroup);
+router.delete("/events/:id_event/groups/:id", AuthMiddleware.validateToken, GroupsController.removeGroup);
 
 // Rotas Pessoas
-router.get(
-  "/events/:id_event/groups/:id_group/people",
-  AuthMiddleware.validateToken,
-  PeopleController.getAll,
-);
-router.get(
-  "/events/:id_event/groups/:id_group/people/:id",
-  AuthMiddleware.validateToken,
-  PeopleController.getPerson,
-);
-router.post(
-  "/events/:id_event/groups/:id_group/people",
-  AuthMiddleware.validateToken,
-  PeopleController.addPerson,
-);
-router.put(
-  "/events/:id_event/groups/:id_group/people/:id",
-  AuthMiddleware.validateToken,
-  PeopleController.updatePerson,
-);
-router.delete(
-  "/events/:id_event/groups/:id_group/people/:id",
-  AuthMiddleware.validateToken,
-  PeopleController.removePerson,
-);
+router.get("/events/:id_event/groups/:id_group/people", AuthMiddleware.validateToken, PeopleController.getAll);
+router.get("/events/:id_event/groups/:id_group/people/:id", AuthMiddleware.validateToken, PeopleController.getPerson);
+router.post("/events/:id_event/groups/:id_group/people", AuthMiddleware.validateToken, PeopleController.addPerson);
+router.put("/events/:id_event/groups/:id_group/people/:id", AuthMiddleware.validateToken, PeopleController.updatePerson);
+router.delete("/events/:id_event/groups/:id_group/people/:id", AuthMiddleware.validateToken, PeopleController.removePerson);
 
 export default router;

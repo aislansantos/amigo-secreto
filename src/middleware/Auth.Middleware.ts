@@ -1,11 +1,7 @@
 import { Request, Response, RequestHandler, NextFunction } from "express";
 import * as AuthService from "@/services/Auth.Service";
 
-export const validateToken: RequestHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const validateToken: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
   if (!req.headers.authorization) {
     return res.status(403).json({ error: "Acesso Negado" });
   }

@@ -3,9 +3,10 @@ import * as express from "express";
 import { Request, Response } from "express";
 import * as cors from "cors";
 import * as path from "path";
-// import * as https from "https";
+import * as https from "https";
 import * as http from "http";
 import adminRoutes from "@/routes/admin";
+import * as fs from "fs";
 import siteRoutes from "@/routes/site";
 import { requestIntercepter } from "@/utils/requestIntercepter";
 
@@ -39,11 +40,16 @@ const regularServer = http.createServer(app);
 
 // Verificar ambiente e iniciar o servidor
 if (process.env.NODE_ENV === "production") {
-  //TODO: Configurar SSL
-  //TODO: Rodar server na 80 e na 443
+  //  Configurar SSL
+  const options = {
+    key: fs.readFileSync(process.env.SSL_KEY as string),
+    cert: fs.readFileSync(process.env.SSL_CERT as string),
+  };
+  // Rodar server na 80 e na 443
+  const secServer = https.createServer(options, app);
+  runServer(80, regularServer);
+  runServer(443, secServer);
 } else {
-  const serverPort: number = process.env.PORT
-    ? parseInt(process.env.PORT)
-    : 9000;
+  const serverPort: number = process.env.PORT ? parseInt(process.env.PORT) : 9000;
   runServer(serverPort, regularServer);
 }

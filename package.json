@@ -12,7 +12,9 @@
     "test": "jest --passWithNoTests",
     "test:watch": "npm test --watch",
     "test:staged": "npm test --findRelatedTests",
-    "test:push": "npm test --coverage"
+    "test:push": "npm test --coverage",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",

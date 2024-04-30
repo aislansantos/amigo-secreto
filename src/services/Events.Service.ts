@@ -79,10 +79,7 @@ export const doMatches = async (id: number): Promise<boolean> => {
             });
           }
 
-          if (
-            sortableFiltred.length === 0 ||
-            (sortableFiltred.length === 1 && peopleList[i].id === sortableFiltred[0])
-          ) {
+          if (sortableFiltred.length === 0 || (sortableFiltred.length === 1 && peopleList[i].id === sortableFiltred[0])) {
             keepTrying = true;
           } else {
             let sortedIndex = Math.floor(Math.random() * sortableFiltred.length);
