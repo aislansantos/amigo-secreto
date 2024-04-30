@@ -1,4 +1,6 @@
 import { PrismaClient, Prisma } from "@prisma/client";
+import * as PeopleService from "@/services/People.Service";
+import * as GroupServices from "@/services/Groups.Service";
 
 const prisma = new PrismaClient();
 
@@ -42,4 +44,65 @@ export const removeEvent = async (id: number) => {
   } catch (error) {
     return false;
   }
+};
+
+/*
+  ID evento = 5
+    - Grupo A
+    -- Aislan
+    -- Débora
+    -- Augusto
+
+    - Grupo B
+    -- Maria
+    -- Cotinha
+    -- Roseli
+    
+    - Grupo C
+    -- Julinho
+    -- Sabrina
+    -- Luiz Alexandre
+    -- Luiz Carlos
+
+  */
+
+export const doMatches = async (id: number): Promise<boolean> => {
+  const eventItem = await prisma.event.findFirst({
+    where: { id },
+    select: { grouped: true },
+  });
+  if (eventItem) {
+    const peopleList = await PeopleService.getPerson({
+      id_event: id,
+    });
+    if (peopleList && Array.isArray(peopleList)) {
+      let sortedList: { id: number; matche: number }[] = [];
+      let sortable: number[] = [];
+
+      let attempts = 0;
+      const maxAttempts = peopleList.length;
+      let keepTrying = true;
+
+      while (keepTrying && attempts < maxAttempts) {
+        
+      }
+
+      /*
+      if (attempts < maxAttempts) {
+        for (const i in sortedList) {
+          await PeopleService.updatePerson(
+            {
+              id: sortedList[i].id,
+              id_event: id,
+            },
+            { matched: "" }, // TODO: Criar o encryptMatch()
+          );
+        }
+        return true;
+      }
+      */
+    }
+  }
+
+  return false; //! TEMPORÁRIO
 };
